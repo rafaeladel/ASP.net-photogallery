@@ -109,14 +109,6 @@
     <Content Include="img\result.png" />
     <Content Include="img\temp.png" />
     <Content Include="img\img_rotator_buttons.png" />
-    <Content Include="img\test\Chrysanthemum.jpg" />
-    <Content Include="img\test\Desert.jpg" />
-    <Content Include="img\test\Hydrangeas.jpg" />
-    <Content Include="img\test\Jellyfish.jpg" />
-    <Content Include="img\test\Koala.jpg" />
-    <Content Include="img\test\Lighthouse.jpg" />
-    <Content Include="img\test\Penguins.jpg" />
-    <Content Include="img\test\Tulips.jpg" />
     <Content Include="js\gallery.js" />
     <Content Include="js\jquery-1.8.3-vsdoc.js" />
     <Content Include="js\jquery-1.8.3.js" />
