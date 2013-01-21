@@ -1,0 +1,13 @@
+﻿
+#ContentPlaceHolder1_cat_txt
+{
+    width:190px !important;   
+}
+
+#ContentPlaceHolder1_cat_ddl
+{
+    padding:3px;
+    border:1px solid gray;
+    border-radius : 2px;
+    width:140px;
+}

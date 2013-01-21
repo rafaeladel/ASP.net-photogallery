@@ -1,0 +1,40 @@
+﻿*
+{
+    padding:0;
+    margin:0;
+    font-family:Arial;
+}
+
+body 
+{
+    background-color:#333333;
+}
+
+#footer 
+{
+    background:#232323;
+}
+
+#footer > #copyright 
+{
+    color : #878787;
+}
+
+#copyright *
+{
+    vertical-align:middle;
+    display:inline-block;
+    padding:2px;
+    font-family:Arial;
+    font-size:12px;
+}
+
+#copyright #stamp 
+{
+    float:right;
+}
+
+#footer a 
+{
+    color :Silver;
+}

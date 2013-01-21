@@ -1,0 +1,58 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="gallery_master.master.cs" Inherits="photography.gallery_master" %>
+
+<!DOCTYPE html">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link rel="Stylesheet" type="text/css" href="css/whole.css" />
+    <link rel="Stylesheet" type="text/css" href="css/master.css" />
+    <link href="css/jquery_ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {            
+            $("#BulletedList1 a[href='" + location.pathname.substring(location.pathname.lastIndexOf("/") + 1) + "']").addClass("current"); 
+        });
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="whole_container">
+            <div id="header">
+                <div id="logo">
+                    <a href="homepage.aspx"><img src="img/logo.png" alt="logo"/></a>
+                </div>
+                <div id="nav_container"> 
+                    <ul id="BulletedList1">
+                        <li><a href="gallery.aspx">Gallery</a></li>
+                        <li><a href="sessions.aspx">Sessions</a></li>                        
+                        <li><a href="offers.aspx">Offers</a></li>
+                        <li><a href="about.aspx">About</a></li>
+                        <li><a href="contact.aspx">Contact</a></li>
+                    </ul>                                   
+                </div>
+            </div>
+            <div id="main_content">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            
+                </asp:ContentPlaceHolder>
+            </div>
+            <div id="footer">
+                <div id="copyright">
+                    <div id="rights">
+                        <p>All rights reserverd.© - Best viewed using the latest version of <a href="http://www.google.com/chrome">Google Chrome</a> or <a href="www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a>.</p>                    
+                    </div>
+                    <div id="stamp">                    
+                        <p>Crafted by</p>
+                        <a href="http://about.me/rafael.adel">Rafael Adel</a>
+                    </div>                   
+                </div>
+            </div>
+        </div>
+    </form>    
+</body>
+</html>

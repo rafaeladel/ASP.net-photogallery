@@ -1,0 +1,6 @@
+F:\Web Prog\my work\mcpd\gallery\photography\photography\bin\photography.dll
+F:\Web Prog\my work\mcpd\gallery\photography\photography\bin\photography.pdb
+F:\Web Prog\my work\mcpd\gallery\photography\photography\obj\Debug\ResolveAssemblyReference.cache
+F:\Web Prog\my work\mcpd\gallery\photography\photography\obj\Debug\photography.dll
+F:\Web Prog\my work\mcpd\gallery\photography\photography\obj\Debug\photography.pdb
+F:\Web Prog\my work\mcpd\gallery\photography\photography\bin\Krystalware.SlickUpload.dll

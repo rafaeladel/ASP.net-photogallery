@@ -1,0 +1,68 @@
+﻿.sectionTitle h3
+{
+    margin-top:85px !important;
+}
+
+.offer
+{
+    width:650px;
+    margin: 10px 0;
+}
+
+.offerTitle
+{
+    padding:7px 12px;
+    background:#424242;
+    /*box-shadow:1px 1px 1px black;*/
+    box-shadow : 0px 0px 4px #2D2D2D;
+    border-radius: 3px;
+    cursor:pointer;
+}
+
+.offerTitle > * 
+{
+    display:inline-block;
+}
+
+.offerTitle > img 
+{
+    float:right;
+    width:15px;
+    height:15px;
+    background-image:url('../img/mCSB_buttons.png');
+    background-repeat:no-repeat;
+}
+
+.opened 
+{
+    background-position: -23px -40px;
+}
+
+.closed 
+{
+    background-position: -15px -21px;
+}
+
+.offerTitle p 
+{
+    color: #D8D8D8;
+    font-size: 15px;
+}
+
+.offerBody 
+{
+    margin : 0 auto;
+    width:620px;
+    display:none;
+    padding:5px 10px;
+    border-radius : 0px 0px 3px 3px;
+    background:#2E2E2E;
+    /*box-shadow:1px 1px 1px black;*/
+    /*box-shadow : 0px 0px 4px #212121;*/
+}
+
+.offerBody p 
+{
+    color:#D8D8D8;
+    font-size:13px;
+}

@@ -1,0 +1,194 @@
+﻿* 
+{
+    padding:0;
+    margin:0;
+}
+
+#header 
+{
+    overflow:auto;
+    padding : 15px;
+    background:lightgray;
+    border-bottom: 1px solid gray;
+}
+
+#header > div 
+{
+    float:left;
+}
+
+#logo img 
+{
+    width:220px;
+    height:70px;
+}
+
+#nav_container 
+{
+   margin-left:500px;
+   margin-top:50px;
+}
+
+#BulletedList1
+{
+    list-style:none;
+}
+
+#BulletedList1 li 
+{
+    display:inline;
+    margin-left: 20px;
+}
+
+#BulletedList1 li a 
+{
+    text-decoration:none;
+}
+
+#footer 
+{
+    background:#232323;
+}
+
+#footer > #copyright 
+{
+    color : #878787;
+}
+
+#footer a 
+{
+    color:Silver;
+}
+
+#copyright *
+{
+    vertical-align:middle;
+    display:inline-block;
+    padding:2px;
+    font-family:Arial;
+    font-size:12px;
+}
+
+#copyright #stamp 
+{
+    float:right;
+}
+
+.current 
+{
+    background:gray;
+    padding:6px;
+    border-radius: 5px;
+    color:lightgray;
+}
+
+#whole_wrapper
+{
+    padding:30px;    
+}
+
+#whole_wrapper > div 
+{
+    display:inline-block;
+    vertical-align:top;
+    
+}
+
+#insert_wrapper 
+{
+    width:400px;
+    margin-right:50px;
+}
+
+.fieldset_format 
+{
+    width:370px;  
+    padding:0px 15px;  
+    font-family:Arial;
+    font-size:14px;    
+    margin-bottom:5px;
+}
+
+legend 
+{
+    margin-left:5px;
+    font-weight:bold;
+}
+
+
+.fieldset_format ul
+{
+    list-style:none;
+}
+
+.fieldset_format ul li 
+{
+    margin: 10px 0;
+}
+
+.fieldset_format label
+{
+    display:block;
+}
+
+.fieldset_format textarea, .fieldset_format input[type="text"]
+{
+    width:350px;
+    border:1px solid gray;
+    border-radius : 2px;
+    padding:5px;
+}
+
+.textarea_format 
+{
+    height:80px; 
+    resize:none;
+}
+
+.buttons_positioner
+{
+    margin:5px;
+}
+
+.submit_btn, .clear_btn
+{
+    padding:5px;
+    float:right;
+}
+
+
+#grid_wrapper 
+{
+    overflow:auto;
+    margin-top:8px;
+    width:630px;
+}
+
+.mGrid 
+{
+    table-layout:fixed;
+}
+
+.mGrid *
+{
+    padding : 0 ;
+    margin: 0 ;
+}
+
+.mGrid th
+{
+    color:White;
+    background:gray;
+    padding:5px;
+}
+
+.mGrid tr td 
+{
+    padding:5px;
+    white-space:nowrap;
+}
+
+.mGrid tr td input[type="text"]
+{
+    width:100% !important;
+}

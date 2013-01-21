@@ -1,0 +1,57 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="admin_master.master.cs" Inherits="photography.filippo_admin_page.admin_master" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link rel="Stylesheet" type="text/css" href="css/a_master.css"/>
+    <link href="../css/jquery_ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+        $(function () {
+            $("#BulletedList1 a[href='" + location.pathname.substring(location.pathname.lastIndexOf("/") + 1) + "']").addClass("current");
+        });
+        function reset_all() {
+            $(".fieldset_format input[type='text'], .fieldset_format textarea").val("");
+        };
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <div id="header">
+            <div id="logo">
+                <a href="."><img src="../img/logo.png" alt="logo"/></a>
+            </div>
+            <div id="nav_container" runat="server">
+                <ul id="BulletedList1">
+                    <li><a href="a_gallery.aspx">Gallery</a></li>
+                    <li><a href="a_sessions.aspx">Sessions</a></li>
+                    <li><a href="a_offers.aspx">Offers</a></li>
+                    <li><a href="a_about.aspx">About</a></li>
+                    <li><a href="a_contact.aspx">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">            
+            </script>
+        </asp:ContentPlaceHolder>
+        <div id="footer">
+            <div id="copyright">
+                <div id="rights">
+                    <p>All rights reserverd.© - Best viewed using the latest version of <a href="http://www.google.com/chrome">Google Chrome</a> or <a href="www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a>.</p>                    
+                </div>
+                <div id="stamp">                    
+                    <p>Crafted by</p>
+                    <a href="http://about.me/rafael.adel">Rafael Adel</a>
+                </div>                   
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
