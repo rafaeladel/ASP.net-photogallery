@@ -1,9 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/filippo_admin_page/admin_master.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="photography.filippo_admin_page.login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-        #ContentPlaceHolder1_remembercheck , #ContentPlaceHolder1_checklbl
+        #checkRemember
         {
-            display:inline;           
+            display:inline-block;
+            margin-top:5px;
+        }
+        
+        #checkRemember > * 
+        {
+            display:inline;
         }
         
     </style>
@@ -22,8 +28,10 @@
                         <asp:TextBox runat="server" id="pw_text" placeholder="Password"/>
                     </li>
                     <li>
-                        <asp:CheckBox Text="" ID="remembercheck" runat="server" />
-                        <asp:Label AssociatedControlID="remembercheck" Text="Remember Me!" runat="server" ID="checklbl"></asp:Label>
+                        <div id="checkRemember">
+                            <asp:CheckBox Text="" ID="remembercheck" runat="server" />
+                            <asp:Label AssociatedControlID="remembercheck" Text="Remember Me!" runat="server" ID="checklbl"></asp:Label>
+                        </div>
                         <asp:Button ID="clear" class="clear_btn buttons_positioner" runat="server" Text="Clear" CausesValidation="False" 
                             UseSubmitBehavior="False" onclientclick="reset_all(); return false;" />
                         <asp:Button class="submit_btn" runat="server" Text="Upload" id="submit" 
