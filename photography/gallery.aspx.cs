@@ -16,11 +16,15 @@ namespace photography
 
             DataSet dst = new DataSet();
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
-            {                
+            {
                 SqlDataAdapter adbtr = new SqlDataAdapter("SELECT DISTINCT img_cat FROM gallery", con);
                 try
                 {
-                    adbtr.Fill(dst);
+                    int result = adbtr.Fill(dst);
+                    if (result == 0)
+                    {
+                        return;
+                    }
                     cat_repeater.DataSource = dst;
                     cat_repeater.DataBind();
                 }
