@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="homepage.aspx.cs" Inherits="photography.WebForm2" %>
-<%@ OutputCache VaryByParam="*" %>
+<%@ OutputCache VaryByParam="*" Duration="86400"%>
 
 <!DOCTYPE html">
 
