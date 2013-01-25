@@ -13,5 +13,17 @@ namespace photography.filippo_admin_page
         {
 
         }
+
+        protected void logout_btn_Click(object sender, EventArgs e)
+        {
+            Session["username"] = null;
+            if (Request.Cookies["username"] != null)
+            {
+                HttpCookie my_cookie = new HttpCookie("username");
+                my_cookie.Expires = DateTime.Now.AddSeconds(-1);
+                Response.Cookies.Add(my_cookie);
+                Response.Redirect("login.aspx");
+            }
+        }
     }
 }

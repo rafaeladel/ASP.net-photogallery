@@ -75,6 +75,7 @@
     <Content Include="filippo_admin_page\css\a_offers.css" />
     <Content Include="filippo_admin_page\img_session.aspx" />
     <Content Include="filippo_admin_page\login.aspx" />
+    <Content Include="filippo_admin_page\register.aspx" />
     <Content Include="gallery.aspx" />
     <Content Include="Global.asax" />
     <Content Include="img\about_slide.jpg" />
@@ -206,6 +207,13 @@
     </Compile>
     <Compile Include="filippo_admin_page\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="filippo_admin_page\register.aspx.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="filippo_admin_page\register.aspx.designer.cs">
+      <DependentUpon>register.aspx</DependentUpon>
     </Compile>
     <Compile Include="gallery.aspx.cs">
       <DependentUpon>gallery.aspx</DependentUpon>

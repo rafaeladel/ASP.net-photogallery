@@ -23,6 +23,21 @@
     height:70px;
 }
 
+#logout
+{
+    float:right !important;
+    border: 1px solid brown;
+    padding:5px;
+    border-radius : 2px;
+}
+
+#logout a 
+{
+    color:brown;
+    font-weight:bold;
+    text-decoration:none;
+}
+
 #nav_container 
 {
    margin-left:500px;

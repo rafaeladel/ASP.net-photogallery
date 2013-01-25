@@ -13,6 +13,14 @@ namespace photography.filippo_admin_page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.Cookies["username"] == null)
+            {
+                if (Session["username"] == null)
+                {
+                    Response.Redirect("login.aspx");
+                }
+            }
+
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {

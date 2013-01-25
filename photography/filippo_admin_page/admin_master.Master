@@ -27,6 +27,10 @@
             <div id="logo">
                 <a href="."><img src="../img/logo.png" alt="logo"/></a>
             </div>
+            <div id="logout" runat="server">
+                <asp:LinkButton Text="Logout" ID="logout_btn" runat="server" 
+                    onclick="logout_btn_Click" />
+            </div>
             <div id="nav_container" runat="server">
                 <ul id="BulletedList1">
                     <li><a href="a_gallery.aspx">Gallery</a></li>
@@ -38,7 +42,6 @@
             </div>
         </div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">            
-            </script>
         </asp:ContentPlaceHolder>
         <div id="footer">
             <div id="copyright">

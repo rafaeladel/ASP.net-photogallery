@@ -15,6 +15,14 @@ namespace photography.filippo_admin_page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.Cookies["username"] == null)
+            {
+                if (Session["username"] == null)
+                {
+                    Response.Redirect("login.aspx");
+                }
+            }
+
             int sid = 0;
             bool sid_valid = int.TryParse(Request.QueryString["sid"], out sid);
             if (sid_valid && Request.QueryString["sname"] != null)

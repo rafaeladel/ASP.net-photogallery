@@ -10,7 +10,7 @@
 namespace photography.filippo_admin_page {
     
     
-    public partial class login {
+    public partial class register {
         
         /// <summary>
         /// un_lbl control.
@@ -31,6 +31,15 @@ namespace photography.filippo_admin_page {
         protected global::System.Web.UI.WebControls.TextBox un_text;
         
         /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// pw_lbl control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace photography.filippo_admin_page {
         protected global::System.Web.UI.WebControls.TextBox pw_text;
         
         /// <summary>
+        /// RequiredFieldValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        
+        /// <summary>
         /// msg_lbl control.
         /// </summary>
         /// <remarks>
@@ -58,31 +76,13 @@ namespace photography.filippo_admin_page {
         protected global::System.Web.UI.WebControls.Label msg_lbl;
         
         /// <summary>
-        /// remembercheck control.
+        /// register_btn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox remembercheck;
-        
-        /// <summary>
-        /// checklbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label checklbl;
-        
-        /// <summary>
-        /// submit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button submit;
+        protected global::System.Web.UI.WebControls.Button register_btn;
         
         /// <summary>
         /// clear control.
