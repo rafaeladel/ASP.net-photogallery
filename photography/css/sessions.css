@@ -19,12 +19,22 @@
     border-radius : 3px;
     background:#404040;
     box-shadow : 0px 0px 4px #2D2D2D;   
+    position:relative;
+}
+
+.session_btn 
+{
+    height:100%;
+    width:100%;
+    position:absolute;   
+    margin:-10px;
+    opacity:0;
+    cursor:pointer;
 }
 
 .session_box:hover
 {
-    background:#4B4B4B;
-    cursor:pointer;   
+    background:#4B4B4B;    
 }
 
 .session_icon 
@@ -57,6 +67,8 @@
 #images_wrapper
 {
     padding-left:3px;
+    margin-bottom:10px;
+    height:620px;
 }
 
 #images_info 
@@ -109,4 +121,15 @@
 {
     height:100%;
     width:100%;
+}
+
+.mCustomScrollBox
+{
+    width: 980px;
+    max-width:980px !important;   
+}
+
+.mCSB_container 
+{
+    width: 964px !important;
 }

@@ -124,6 +124,7 @@
     <Content Include="js\jquery_ui\jquery.roundabout.js" />
     <Content Include="js\mine.js" />
     <Content Include="js\homepage.js" />
+    <Content Include="js\sessions.js" />
     <Content Include="offers.aspx" />
     <Content Include="sessions.aspx" />
     <Content Include="Web.config">

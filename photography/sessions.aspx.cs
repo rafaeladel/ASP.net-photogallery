@@ -58,7 +58,7 @@ namespace photography
 
         protected void sessions_repeater_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            string sid = ((Panel)e.CommandSource).Attributes["data-session-id"];
+            string sid = ((Button)e.CommandSource).Attributes["data-session-id"];
             Response.Redirect("sessions.aspx?sid=" + sid);
             
         }
