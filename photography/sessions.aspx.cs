@@ -26,7 +26,12 @@ namespace photography
                     info_cmd.Parameters.AddWithValue("@id", session_id);
                     con.Open();
                     SqlDataReader rdr = info_cmd.ExecuteReader();
-                    while (rdr.Read())
+                    bool has_record = rdr.Read();
+                    if (has_record == false)
+                    {
+                        Response.Redirect("sessions.aspx");
+                    }
+                    while (has_record)
                     {
                         session_title.InnerText = rdr["session_name"].ToString();
                         if (rdr["session_desc"].ToString().Trim().Length == 0)
@@ -46,6 +51,7 @@ namespace photography
                         {
                             session_date.InnerText = rdr["session_date"].ToString();
                         }
+                        has_record = rdr.Read();
                     }
                 }
             }
