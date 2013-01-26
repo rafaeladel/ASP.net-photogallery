@@ -51,7 +51,7 @@
                     </li>
                     <li>
                         <asp:Label Text="Taken in:" id="date_lbl" AssociatedControlID="date_txt" runat="server" />
-                        <asp:TextBox ID="date_txt" runat="server" ReadOnly="true" placeholder="Session Date"/>
+                        <asp:TextBox ID="date_txt" runat="server" placeholder="Session Date"/>
                     </li>
                     <li>
                         <asp:Label Text="Cover:" ID="cover_lbl" runat="server" />
