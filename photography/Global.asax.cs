@@ -24,7 +24,11 @@ namespace photography
         {
             if (Request.Url.AbsolutePath.Equals("/"))
             {
-                Server.Transfer(Request.Url.AbsolutePath + "homepage.aspx");
+                HttpContext.Current.RewritePath(Request.Url.AbsolutePath + "homepage.aspx");
+            }
+            else if (Request.Url.AbsolutePath.EndsWith("filippo_admin_page/"))
+            {
+                HttpContext.Current.RewritePath(Request.Url.AbsolutePath + "login.aspx");
             }
         }
 
