@@ -69,24 +69,34 @@
             <asp:Label ID="msg_lbl" runat="server" Visible="false"></asp:Label>
         </div>
         <div id="grid_wrapper">
+            <asp:LinkButton Text="Delete selected Images" ID="DeleteBtn" OnClick="DeleteBtn_Click" OnClientClick="return confirm('Delete Selected Images?');" class="delete_btn" runat="server" />
             <asp:GridView runat="server" id="img_session_grid" AllowPaging="True" 
                 AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
                 BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" 
-                DataKeyNames="session_img_path" DataSourceID="SqlDataSource1" ForeColor="Black" 
-                GridLines="Vertical" CssClass="mGrid" PageSize="5" 
+                DataKeyNames="session_img_id" DataSourceID="SqlDataSource1" ForeColor="Black" 
+                GridLines="Vertical" CssClass="mGrid" PageSize="5"
                 onselectedindexchanged="img_session_grid_SelectedIndexChanged">
                 <AlternatingRowStyle BackColor="#CCCCCC" />
                 <Columns>
-                    <asp:CommandField ShowDeleteButton="True" ShowSelectButton="True" 
+                    <asp:TemplateField HeaderText="Delete">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="CheckBox1" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:CommandField ShowSelectButton="True" 
                         SelectText="Set as Cover" />
                     <asp:BoundField DataField="session_img_id" HeaderText="session_img_id" 
                         InsertVisible="False" ReadOnly="True" SortExpression="session_img_path" 
                         Visible="False" />
                     <asp:BoundField DataField="session_img_name" HeaderText="Name" 
                         SortExpression="session_img_name" />
-                    <asp:ImageField DataImageUrlField="session_img_path" HeaderText="Image">
-                        <ControlStyle Height="100px" Width="150px" />
-                    </asp:ImageField>
+                    <asp:TemplateField HeaderText="Image">
+                        <ItemTemplate>
+                            <asp:Image ID="Image1" runat="server" 
+                                ImageUrl='<%# DataBinder.Eval(Container.DataItem, "session_img_path") %>' />
+                        </ItemTemplate>
+                        <ControlStyle Height="100px" Width="140px" />
+                    </asp:TemplateField>
                 </Columns>
                 <FooterStyle BackColor="#CCCCCC" />
                 <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />

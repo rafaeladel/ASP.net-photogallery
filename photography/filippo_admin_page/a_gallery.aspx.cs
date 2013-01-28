@@ -22,8 +22,20 @@ namespace photography.filippo_admin_page
                     Response.Redirect("login.aspx");
                 }
             }
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
+            {
+                SqlCommand check_cat = new SqlCommand("SELECT COUNT(*) FROM gallery", con);
+                con.Open();
+                int count = (int)check_cat.ExecuteScalar();
+                if (count == 0)
+                {
+                    DeleteBtn.Visible = false;
+                }
+            }
         }    
 
+        //Inserting
         protected void submit_Click(object sender, EventArgs e)
         {
             //setting up variables
@@ -101,11 +113,10 @@ namespace photography.filippo_admin_page
                     InsertDB(img_title, img_desc, img_cat, alt_file);
                     GridView1.DataBind();
                     cat_ddl.DataBind();
+                    if (!DeleteBtn.Visible) { DeleteBtn.Visible = true; }
                 }
-            }
-          
+            }          
         }
-
         protected void InsertDB(string title, string desc, string cat, string path)
         {
             DateTime now = DateTime.Now;
@@ -152,16 +163,53 @@ namespace photography.filippo_admin_page
 
             }
         }
+        
 
-        protected void GridView1_RowDeleted(object sender, GridViewDeletedEventArgs e)
+        //Deleting
+        protected void DeleteBtn_Click(object sender, EventArgs e)
         {
-            DirectoryInfo my_dir = new DirectoryInfo(Server.MapPath("~/img/gallery/" + e.Values["img_cat"]));
+            try
+            {
+                int rowCount = GridView1.Rows.Count;
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
+                {
+                    SqlCommand deleteCmd = new SqlCommand("DELETE FROM gallery WHERE img_id=@id", con);
+                    con.Open();
+                    for (int i = 0; i < rowCount; i++)
+                    {
+                        CheckBox deleteChk = (CheckBox)GridView1.Rows[i].Cells[0].FindControl("deleteCheck");
+                        int rowID = Convert.ToInt32(GridView1.DataKeys[i].Value);
+                        string cat = GridView1.Rows[i].Cells[5].Text;
+                        string path = ((Image)GridView1.Rows[i].Cells[7].FindControl("Image1")).ImageUrl;
+                        if (deleteChk.Checked)
+                        {
+                            deleteCmd.Parameters.AddWithValue("@id", rowID);
+                            deleteCmd.ExecuteNonQuery();
+                            deleteCmd.Parameters.Clear();
+                            Delete_Files(cat, path);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                msg_lbl.Visible = true;
+                msg_lbl.Text = ex.Message;
+            }
+            catch (IOException ex)
+            {
+                msg_lbl.Visible = true;
+                msg_lbl.Text = ex.Message;
+            }
+            GridView1.DataBind();
+        }
+        protected void Delete_Files(string cat, string path)
+        {
+            DirectoryInfo my_dir = new DirectoryInfo(Server.MapPath("~/img/gallery/" + cat));
             try
             {                
                 foreach (FileInfo my_file in my_dir.GetFiles())
-                {
-                    //getting path of the deleted file
-                    string path = e.Values["img_path"].ToString();
+                {   
                     //delete file
                     if (my_file.Name == path.Substring(path.LastIndexOf("/") + 1))
                     {
@@ -173,7 +221,7 @@ namespace photography.filippo_admin_page
                     my_dir.Delete();
                     msg_lbl.Visible = true;
                     cat_ddl.DataBind();
-                    msg_lbl.Text = "Category: " + e.Values["img_cat"] + " is deleted completely.";
+                    msg_lbl.Text = "Category: " + cat + " is deleted completely.";
                 }
             }
             catch (IOException ex)

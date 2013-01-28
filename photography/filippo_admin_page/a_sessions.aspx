@@ -39,15 +39,20 @@
             </fieldset>            
         </div>
         <div id="grid_wrapper">
+            <asp:LinkButton Text="Delete selected sessions" ID="DeleteBtn" OnClick="DeleteBtn_Click" OnClientClick="return confirm('Delete Selected Sessions?');" class="delete_btn" runat="server" />
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
                 DataKeyNames="session_id" DataSourceID="SqlDataSource1" AllowPaging="True" 
-                AllowSorting="True" onrowdeleted="GridView1_RowDeleted" 
-                onselectedindexchanged="GridView1_SelectedIndexChanged" CssClass="mGrid" 
+                AllowSorting="True" onselectedindexchanged="GridView1_SelectedIndexChanged" CssClass="mGrid" 
                 BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" 
                 CellPadding="3" ForeColor="Black" GridLines="Vertical" PageSize="5">
                 <AlternatingRowStyle BackColor="#CCCCCC" />
                 <Columns>
-                    <asp:CommandField ShowDeleteButton="True" ShowSelectButton="True" />
+                    <asp:TemplateField HeaderText="Delete">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="deleteCheck" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:CommandField ShowSelectButton="True" HeaderText="Edit Session" />
                     <asp:BoundField DataField="session_id" HeaderText="session_id" 
                         InsertVisible="False" ReadOnly="True" SortExpression="session_id" 
                         Visible="False" />

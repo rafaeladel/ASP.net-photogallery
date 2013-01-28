@@ -55,15 +55,21 @@
                 </fieldset>
             </div>
             <div id="grid_wrapper">
+                <asp:LinkButton Text="Delete selected photos" ID="DeleteBtn" OnClick="DeleteBtn_Click" OnClientClick="return confirm('Delete Selected Photos?');" class="delete_btn" runat="server" />
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
                     AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
                     BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" 
                     DataKeyNames="img_id" DataSourceID="SqlDataSource1" ForeColor="Black" 
-                    GridLines="Vertical" PageSize="5" CssClass="mGrid" 
-                    onrowdeleted="GridView1_RowDeleted">
+                    GridLines="Vertical" PageSize="5" CssClass="mGrid">
                     <AlternatingRowStyle BackColor="#CCCCCC" />
                     <Columns>
-                        <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+                        <asp:TemplateField HeaderText="Delete">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="deleteCheck" runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:CommandField ShowEditButton="True" HeaderText="Edit" />
+                        <asp:BoundField DataField="img_id" Visible="false" />
                         <asp:BoundField DataField="img_title" HeaderText="Title" 
                             SortExpression="img_title" />
                         <asp:BoundField DataField="img_desc" HeaderText="Description" 
@@ -74,9 +80,13 @@
                             SortExpression="img_date" ReadOnly="True">
                         <ControlStyle Width="200px" />
                         </asp:BoundField>
-                        <asp:ImageField DataImageUrlField="img_path" HeaderText="Image" ReadOnly="True">
+                        <asp:TemplateField HeaderText="Image">
+                            <ItemTemplate>
+                                <asp:Image ID="Image1" runat="server" 
+                                    ImageUrl='<%# DataBinder.Eval(Container.DataItem, "img_path") %>'/>
+                            </ItemTemplate>
                             <ControlStyle Height="100px" Width="150px" />
-                        </asp:ImageField>
+                        </asp:TemplateField>
                     </Columns>
                     <FooterStyle BackColor="#CCCCCC" />
                     <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />

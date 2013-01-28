@@ -215,7 +215,7 @@ namespace photography.filippo_admin_page
 
         protected void img_session_grid_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string img_path = img_session_grid.DataKeys[img_session_grid.SelectedIndex].Value.ToString();
+            string img_path = ((Image)img_session_grid.SelectedRow.FindControl("Image1")).ImageUrl;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
             {
                 try
@@ -243,6 +243,68 @@ namespace photography.filippo_admin_page
                     msg_lbl.Text = ex.Message;
                 }
             }
+        }
+
+        protected void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int rowCount = img_session_grid.Rows.Count;
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
+                {
+                    SqlCommand deleteImgCmd = new SqlCommand("DELETE FROM img_session WHERE session_img_id=@id", con);
+                    con.Open();
+                    for (int i = 0; i < rowCount; i++)
+                    {
+                        CheckBox deleteChk = (CheckBox)img_session_grid.Rows[i].Cells[0].FindControl("CheckBox1");
+                        int rowID = Convert.ToInt32(img_session_grid.DataKeys[i].Value);
+                        string img_title = img_session_grid.Rows[i].Cells[3].Text;
+                        if (deleteChk.Checked)
+                        {
+                            deleteImgCmd.Parameters.AddWithValue("@id", rowID);
+                            deleteImgCmd.ExecuteNonQuery();
+                            deleteImgCmd.Parameters.Clear();
+                            DeleteImages(img_title);
+
+                            //get images count
+                            DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/img/sessions/" + Request.QueryString["sname"].ToString()));
+                            int img_count = dir.GetFiles().Length;
+
+                            //Inserting image count into sessions table
+                            SqlCommand insert_count = new SqlCommand("UPDATE sessions SET session_photos=@count WHERE session_id=@session_id", con);
+                            insert_count.Parameters.AddWithValue("@count", img_count);
+                            insert_count.Parameters.AddWithValue("@session_id", Request.QueryString["sid"]);
+                            int insert_count_result = insert_count.ExecuteNonQuery();
+                            if (insert_count_result != 1)
+                            {
+                                upload_msg.Visible = true;
+                                upload_msg.Text = "Error Occured! while Updating images count!";
+                                return;
+                            }
+
+                            msg_lbl.Visible = true;
+                            msg_lbl.Text = string.Format("Image : {0} is deleted.", img_title);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                msg_lbl.Visible = true;
+                msg_lbl.Text = ex.Message;
+            }
+            catch (IOException ex)
+            {
+                msg_lbl.Visible = true;
+                msg_lbl.Text = ex.Message;
+            }
+            img_session_grid.DataBind();
+        }
+
+        private void DeleteImages(string img_title)
+        {
+            string session_title = Request.QueryString["sname"].ToString();
+            File.Delete(Server.MapPath("~/img/sessions/" + session_title + "/" + img_title));
         }
     }
 }
