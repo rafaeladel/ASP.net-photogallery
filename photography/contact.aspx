@@ -23,7 +23,7 @@
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:DBCS %>" 
                 ProviderName="<%$ ConnectionStrings:DBCS.ProviderName %>" 
-                SelectCommand="SELECT [telephone], [twitter], [email], [facebook] FROM [info]">
+                SelectCommandType = "StoredProcedure" SelectCommand="Select_info_SP">
             </asp:SqlDataSource>
             
             <asp:Repeater runat="server" DataSourceID="SqlDataSource1">

@@ -37,7 +37,7 @@
                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                                 ConnectionString="<%$ ConnectionStrings:DBCS %>" 
                                 ProviderName="<%$ ConnectionStrings:DBCS.ProviderName %>" 
-                                SelectCommand="SELECT DISTINCT img_cat FROM gallery"></asp:SqlDataSource>                            
+                                SelectCommand="SELECT * FROM dbo.Select_gallery_names_FN()"></asp:SqlDataSource>                            
                         </li>
                         <li>
                             <asp:Label ID="upload_lbl" runat="server">Select Image(s) (MAX total = 10MB per upload) :</asp:Label>
@@ -68,7 +68,6 @@
                                 <asp:CheckBox ID="deleteCheck" runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField ShowEditButton="True" HeaderText="Edit" />
                         <asp:BoundField DataField="img_id" Visible="false" />
                         <asp:BoundField DataField="img_title" HeaderText="Title" 
                             SortExpression="img_title" />
@@ -100,40 +99,9 @@
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                     ConflictDetection="CompareAllValues" 
                     ConnectionString="<%$ ConnectionStrings:DBCS %>" 
-                    DeleteCommand="DELETE FROM [gallery] WHERE [img_id] = @original_img_id " 
-                    InsertCommand="INSERT INTO [gallery] ([img_title], [img_desc], [img_cat], [img_date], [img_path]) VALUES (@img_title, @img_desc, @img_cat, @img_date, @img_path)" 
                     OldValuesParameterFormatString="original_{0}" 
                     ProviderName="<%$ ConnectionStrings:DBCS.ProviderName %>" 
-                    SelectCommand="SELECT * FROM [gallery]"                     
-                    UpdateCommand="UPDATE [gallery] SET [img_title] = @img_title, [img_desc] = @img_desc, [img_cat] = @img_cat, [img_date] = @img_date, [img_path] = @img_path WHERE [img_id] = @original_img_id AND [img_title] = @original_img_title AND (([img_desc] = @original_img_desc) OR ([img_desc] IS NULL AND @original_img_desc IS NULL)) AND [img_cat] = @original_img_cat AND [img_date] = @original_img_date AND [img_path] = @original_img_path">
-                    <DeleteParameters>
-                        <asp:Parameter Name="original_img_id" Type="Int32" />
-                        <asp:Parameter Name="original_img_title" Type="String" />
-                        <asp:Parameter Name="original_img_desc" Type="String" />
-                        <asp:Parameter Name="original_img_cat" Type="String" />
-                        <asp:Parameter DbType="DateTime2" Name="original_img_date" />
-                        <asp:Parameter Name="original_img_path" Type="String" />
-                    </DeleteParameters>
-                    <InsertParameters>
-                        <asp:Parameter Name="img_title" Type="String" />
-                        <asp:Parameter Name="img_desc" Type="String" />
-                        <asp:Parameter Name="img_cat" Type="String" />
-                        <asp:Parameter DbType="DateTime2" Name="img_date" />
-                        <asp:Parameter Name="img_path" Type="String" />
-                    </InsertParameters>
-                    <UpdateParameters>
-                        <asp:Parameter Name="img_title" Type="String" />
-                        <asp:Parameter Name="img_desc" Type="String" />
-                        <asp:Parameter Name="img_cat" Type="String" />
-                        <asp:Parameter DbType="DateTime2" Name="img_date" />
-                        <asp:Parameter Name="img_path" Type="String" />
-                        <asp:Parameter Name="original_img_id" Type="Int32" />
-                        <asp:Parameter Name="original_img_title" Type="String" />
-                        <asp:Parameter Name="original_img_desc" Type="String" />
-                        <asp:Parameter Name="original_img_cat" Type="String" />
-                        <asp:Parameter DbType="DateTime2" Name="original_img_date" />
-                        <asp:Parameter Name="original_img_path" Type="String" />
-                    </UpdateParameters>
+                    SelectCommand="SELECT * FROM dbo.Select_gallery_all_FN()">                        
                 </asp:SqlDataSource>
                 <asp:Label ID="grid_msg_lbl" runat="server"></asp:Label>
             </div>

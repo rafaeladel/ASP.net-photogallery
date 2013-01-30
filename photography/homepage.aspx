@@ -26,7 +26,7 @@
                         <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:DBCS %>" 
                         ProviderName="<%$ ConnectionStrings:DBCS.ProviderName %>" 
-                        SelectCommand="SELECT [facebook], [twitter], [email] FROM [info]">
+                        SelectCommandType="Text" SelectCommand="SELECT * FROM Select_Info_FN()">
                     </asp:SqlDataSource>                        
                 </div>
                 <div id="iconlabel">

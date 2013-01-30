@@ -22,8 +22,8 @@ namespace photography
 
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
                 {
-                    SqlCommand info_cmd = new SqlCommand("SELECT session_name, session_desc, session_date FROM sessions WHERE session_id=@id", con);
-                    info_cmd.Parameters.AddWithValue("@id", session_id);
+                    SqlCommand info_cmd = new SqlCommand("SELECT session_name, session_desc, session_date FROM Select_session_By_ID_FN(@id)", con);
+                    info_cmd.Parameters.Add("@id", System.Data.SqlDbType.Int, 4).Value = session_id;
                     con.Open();
                     SqlDataReader rdr = info_cmd.ExecuteReader();
                     bool has_record = rdr.Read();

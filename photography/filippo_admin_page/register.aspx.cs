@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;  
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Security.Cryptography;
@@ -31,18 +32,21 @@ namespace photography.filippo_admin_page
                 string hashed_password = Encrypt(pw_text.Text);
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
                 {
-                    SqlCommand user_check = new SqlCommand("SELECT COUNT(*) FROM admins WHERE username=@username AND hashed_password=@hashed_password", con);
+                    SqlCommand user_check = new SqlCommand("SELECT dbo.Auth_admin_FN(@username,@hashed_password)", con);
                     user_check.Parameters.AddWithValue("@username", username);
                     user_check.Parameters.AddWithValue("@hashed_password", hashed_password);
                     con.Open();
-                    int count = (int)user_check.ExecuteScalar();
-                    if (count > 0)
+                    int count = Convert.ToInt32(user_check.ExecuteScalar());
+                    if (count == 1)
                     {
                         msg_lbl.Text = "User already exists.";
                     }
                     else
                     {
-                        SqlCommand register_user = new SqlCommand("INSERT INTO admins (username, hashed_password) VALUES (@username, @hashed_password)", con);
+                        SqlCommand register_user = new SqlCommand();
+                        register_user.CommandType = CommandType.StoredProcedure;
+                        register_user.CommandText = "Insert_admin_SP";
+                        register_user.Connection = con;
                         register_user.Parameters.AddWithValue("@username", username);
                         register_user.Parameters.AddWithValue("@hashed_password", hashed_password);
                         int result = register_user.ExecuteNonQuery();

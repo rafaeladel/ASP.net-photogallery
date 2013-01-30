@@ -17,7 +17,8 @@ namespace photography
             DataSet dst = new DataSet();
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
             {
-                SqlDataAdapter adbtr = new SqlDataAdapter("SELECT DISTINCT img_cat FROM gallery", con);
+                SqlDataAdapter adbtr = new SqlDataAdapter();                
+                adbtr.SelectCommand = new SqlCommand("SELECT * FROM dbo.Select_gallery_names_FN()", con);
                 try
                 {
                     int result = adbtr.Fill(dst);
@@ -37,9 +38,10 @@ namespace photography
 
             using (SqlConnection img_con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
             {
-                SqlDataAdapter img_adbtr = new SqlDataAdapter("SELECT * from gallery WHERE img_cat=@img_cat", img_con);
-                DataSet img_dst = new DataSet();
-                img_adbtr.SelectCommand.Parameters.AddWithValue("@img_cat", dst.Tables[0].Rows[0][0].ToString());                
+                SqlDataAdapter img_adbtr = new SqlDataAdapter();
+                img_adbtr.SelectCommand = new SqlCommand("select * from dbo.Select_gallery_cat_FN(@img_cat)", img_con);
+                img_adbtr.SelectCommand.Parameters.Add("@img_cat",SqlDbType.NVarChar,8000).Value = dst.Tables[0].Rows[0][0].ToString();
+                DataSet img_dst = new DataSet();                
                 try
                 {
                     img_adbtr.Fill(img_dst);
@@ -57,8 +59,10 @@ namespace photography
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM gallery WHERE img_cat=@img_cat", con);
-                cmd.Parameters.AddWithValue("@img_cat", ((LinkButton)e.CommandSource).Text);
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "select * from dbo.Select_gallery_cat_FN(@img_cat)";
+                cmd.Parameters.Add("@img_cat", SqlDbType.NVarChar,8000).Value = ((LinkButton)e.CommandSource).Text;
                 con.Open();
                 slider_repeater.DataSource = cmd.ExecuteReader();
                 slider_repeater.DataBind();

@@ -29,6 +29,8 @@
     position:absolute;   
     margin:-10px;
     opacity:0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
     cursor:pointer;
 }
 

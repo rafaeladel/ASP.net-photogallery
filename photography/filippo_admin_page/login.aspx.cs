@@ -57,30 +57,22 @@ namespace photography.filippo_admin_page
                 {
                     try
                     {
-                        SqlCommand check_user = new SqlCommand("SELECT username, hashed_password FROM admins WHERE username=@username AND hashed_password=@hashed_password", con);
+                        SqlCommand check_user = new SqlCommand("SELECT dbo.Auth_admin_FN(@username, @hashed_password)", con);
                         check_user.Parameters.AddWithValue("@username", username);
                         check_user.Parameters.AddWithValue("@hashed_password", hashed_password);
                         con.Open();
-                        SqlDataReader rdr = check_user.ExecuteReader();
-                        bool has_result = rdr.Read();
-                        if(has_result)
+                        int match = Convert.ToInt32(check_user.ExecuteScalar());                        
+                        if(match == 1)
                         {
-                            if (username == rdr["username"].ToString() && hashed_password == rdr["hashed_password"].ToString())
+                            Session["username"] = username;
+                            if (remembercheck.Checked)
                             {
-                                Session["username"] = rdr["username"].ToString();
-                                if (remembercheck.Checked)
-                                {
-                                    HttpCookie my_cookie = new HttpCookie("username");
-                                    my_cookie["username"] = rdr["username"].ToString();
-                                    my_cookie.Expires = DateTime.Now.AddDays(30);
-                                    Response.Cookies.Add(my_cookie);
-                                }
-                                Response.Redirect("a_gallery.aspx");                                
+                                HttpCookie my_cookie = new HttpCookie("username");
+                                my_cookie["username"] = username;
+                                my_cookie.Expires = DateTime.Now.AddDays(30);
+                                Response.Cookies.Add(my_cookie);
                             }
-                            else
-                            {
-                                msg_lbl.Text = "Invalid username/password!";
-                            }
+                            Response.Redirect("a_gallery.aspx");                                
                         }
                         else
                         {

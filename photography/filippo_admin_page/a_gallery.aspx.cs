@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Text.RegularExpressions;
@@ -127,8 +128,10 @@ namespace photography.filippo_admin_page
             {
                 try
                 {                    
-                    SqlCommand cmd = new SqlCommand(@"INSERT INTO gallery (img_title, img_desc, img_cat, img_date, img_path)
-                                                    VALUES (@title, @desc, @cat, @date, @path)", con);
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "Insert_gallery_SP";
                     con.Open();
                     cmd.Parameters.AddWithValue("@title", title.Trim());
                     cmd.Parameters.AddWithValue("@desc", desc.Trim());
@@ -173,14 +176,17 @@ namespace photography.filippo_admin_page
                 int rowCount = GridView1.Rows.Count;
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
                 {
-                    SqlCommand deleteCmd = new SqlCommand("DELETE FROM gallery WHERE img_id=@id", con);
+                    SqlCommand deleteCmd = new SqlCommand();
+                    deleteCmd.Connection = con;
+                    deleteCmd.CommandType = CommandType.StoredProcedure;
+                    deleteCmd.CommandText = "Delete_gallery_SP";
                     con.Open();
                     for (int i = 0; i < rowCount; i++)
                     {
                         CheckBox deleteChk = (CheckBox)GridView1.Rows[i].Cells[0].FindControl("deleteCheck");
                         int rowID = Convert.ToInt32(GridView1.DataKeys[i].Value);
-                        string cat = GridView1.Rows[i].Cells[5].Text;
-                        string path = ((Image)GridView1.Rows[i].Cells[7].FindControl("Image1")).ImageUrl;
+                        string cat = GridView1.Rows[i].Cells[4].Text;
+                        string path = ((Image)GridView1.Rows[i].Cells[6].FindControl("Image1")).ImageUrl;
                         if (deleteChk.Checked)
                         {
                             deleteCmd.Parameters.AddWithValue("@id", rowID);

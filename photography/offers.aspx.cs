@@ -15,7 +15,7 @@ namespace photography
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand(@"SELECT offer_title, offer_body FROM offers ORDER BY offer_date DESC", con);
+                SqlCommand cmd = new SqlCommand(@"SELECT offer_title, offer_body FROM dbo.Select_offers_FN() ORDER BY offer_date DESC", con);
                 con.Open();
                 try
                 {

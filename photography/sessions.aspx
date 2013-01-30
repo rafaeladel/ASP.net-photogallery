@@ -26,7 +26,7 @@
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:DBCS %>" 
                 ProviderName="<%$ ConnectionStrings:DBCS.ProviderName %>" 
-                SelectCommand="SELECT * FROM [sessions]"></asp:SqlDataSource>
+                SelectCommand="SELECT * FROM dbo.Select_sessions_FN()"></asp:SqlDataSource>
         </div>
     </asp:Panel>  
     
@@ -47,7 +47,7 @@
             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:DBCS %>" 
                 ProviderName="<%$ ConnectionStrings:DBCS.ProviderName %>" 
-                SelectCommand="SELECT [session_img_name], [session_img_path] FROM [img_session] WHERE ([session_id] = @session_id)">
+                SelectCommand="SELECT * FROM dbo.Select_session_img_FN(@session_id)">
                 <SelectParameters>
                     <asp:QueryStringParameter Name="session_id" QueryStringField="sid" 
                         Type="Int32" />

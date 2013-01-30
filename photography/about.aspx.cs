@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 
@@ -19,22 +20,14 @@ namespace photography
             {
                 try
                 {
-                    SqlCommand check_cmd = new SqlCommand("SELECT COUNT(*) FROM info", con);
+                    SqlCommand Sel_info = new SqlCommand();
+                    Sel_info.Connection = con;
+                    Sel_info.CommandType = CommandType.StoredProcedure;
+                    Sel_info.CommandText = "Select_info_SP";
                     con.Open();
-                    int count = (int)check_cmd.ExecuteScalar();
-                    if (count == 0)
-                    {
-                        SqlCommand create_cmd = new SqlCommand("INSERT INTO info VALUES(NULL, NULL, NULL, NULL, NULL)", con);
-                        create_cmd.ExecuteNonQuery();
-                    }
-                    else if (count == 1)
-                    {
-                        SqlCommand read_cmd = new SqlCommand("SELECT about FROM info", con);
-                        SqlDataReader rdr = read_cmd.ExecuteReader();
-                        rdr.Read();
-                        about_txt.InnerText = rdr["about"].ToString();
-                    }
-
+                    SqlDataReader rdr = Sel_info.ExecuteReader();
+                    rdr.Read();
+                    about_txt.InnerText = rdr["about"].ToString();
                 }
                 catch (SqlException ex)
                 {
