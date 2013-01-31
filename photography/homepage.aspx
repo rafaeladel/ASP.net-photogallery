@@ -26,7 +26,7 @@
                         <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:DBCS %>" 
                         ProviderName="<%$ ConnectionStrings:DBCS.ProviderName %>" 
-                        SelectCommandType="Text" SelectCommand="SELECT * FROM Select_Info_FN()">
+                        SelectCommandType="StoredProcedure" SelectCommand="Select_Info_SP">
                     </asp:SqlDataSource>                        
                 </div>
                 <div id="iconlabel">
