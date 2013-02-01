@@ -35,6 +35,7 @@
             <p runat="server" id="session_title">This is Title</p>
             <p runat="server" id="session_desc">This is Desc This is Desc This is Desc This is Desc This is Desc This is Desc </p>
             <p runat="server" id="session_date">This is Date</p>
+            <a href="sessions.aspx" id="back2Session">Back</a>
         </div>
         <div id="images_wrapper">
             <asp:Repeater runat="server" ID="img_repeater" DataSourceID="SqlDataSource2">

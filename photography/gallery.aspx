@@ -18,7 +18,7 @@
             </HeaderTemplate>
             <ItemTemplate>
                 <li>
-                    <asp:LinkButton runat="server" Text='<%# Eval("img_cat") %>'></asp:LinkButton>
+                    <asp:LinkButton runat="server" CssClass="catBtn" Text='<%# Eval("img_cat") %>'></asp:LinkButton>
                 </li>
             </ItemTemplate>
             <FooterTemplate>
@@ -27,6 +27,7 @@
         </asp:Repeater>            
     </div>
     <div id="img_wrapper">
+        <p id="photosCount" runat="server">test</p>
         <div id="backBtn"></div>
         <div id="imgSlider_wrapper">  
             <asp:Repeater ID="slider_repeater" runat="server">
@@ -54,5 +55,5 @@
     <script src="js/jquery_ui/jquery.fancybox-buttons.js" type="text/javascript"></script>
     <script src="js/jquery_ui/jquery.mousewheel.min.js" type="text/javascript"></script>
     <script src="js/jquery_ui/jquery.mCustomScrollbar.js" type="text/javascript"></script>
-    <script src="js/gallery.js" type="text/javascript"></script>
+    <script src="js/gallery.js" type="text/javascript"></script>    
 </asp:Content>

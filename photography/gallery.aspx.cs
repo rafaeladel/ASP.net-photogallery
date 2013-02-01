@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Linq;
+
 namespace photography
 {
     public partial class gallery : System.Web.UI.Page
@@ -26,6 +28,25 @@ namespace photography
                     {
                         return;
                     }
+                    else
+                    {
+                        if (Request.QueryString["cat"] == null || Request.QueryString.Count > 1)
+                        {
+                            string firstCat = dst.Tables[0].Rows[0][0].ToString();
+                            Response.Redirect("gallery.aspx?cat=" + firstCat);
+                        }
+                        else
+                        {
+                            bool catExists = dst.Tables[0].AsEnumerable()
+                                                .Any(row => Request.QueryString["cat"].ToString() ==  row.Field<string>("img_cat"));
+                            if (catExists == false)
+                            {
+                                string firstCat = dst.Tables[0].Rows[0][0].ToString();
+                                Response.Redirect("gallery.aspx?cat=" + firstCat);
+                            }
+                        }
+                    }
+
                     cat_repeater.DataSource = dst;
                     cat_repeater.DataBind();
                 }
@@ -40,33 +61,26 @@ namespace photography
             {
                 SqlDataAdapter img_adbtr = new SqlDataAdapter();
                 img_adbtr.SelectCommand = new SqlCommand("select * from dbo.Select_gallery_cat_FN(@img_cat)", img_con);
-                img_adbtr.SelectCommand.Parameters.Add("@img_cat",SqlDbType.NVarChar,8000).Value = dst.Tables[0].Rows[0][0].ToString();
-                DataSet img_dst = new DataSet();                
+                img_adbtr.SelectCommand.Parameters.Add("@img_cat", SqlDbType.NVarChar, 8000).Value = Request.QueryString["cat"].ToString();
+                DataSet img_dst = new DataSet();
                 try
                 {
                     img_adbtr.Fill(img_dst);
+                    photosCount.InnerText = img_dst.Tables[0].Rows.Count + " Photo(s)";
                     slider_repeater.DataSource = img_dst;
                     slider_repeater.DataBind();
                 }
                 catch (Exception ex)
                 {
                     Response.Write(ex.Message);
-                }                
+                }
             }            
         }
 
         protected void cat_repeater_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
-                cmd.CommandText = "select * from dbo.Select_gallery_cat_FN(@img_cat)";
-                cmd.Parameters.Add("@img_cat", SqlDbType.NVarChar,8000).Value = ((LinkButton)e.CommandSource).Text;
-                con.Open();
-                slider_repeater.DataSource = cmd.ExecuteReader();
-                slider_repeater.DataBind();
-            }
+        {            
+            string catName = ((LinkButton)e.CommandSource).Text;
+            Response.Redirect("gallery.aspx?cat=" + catName);
         }
     }
 }

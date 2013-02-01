@@ -19,7 +19,7 @@ namespace photography
             {
                 sessions_panel.Visible = false;
                 images_panel.Visible = true;
-
+                
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
                 {
                     SqlCommand info_cmd = new SqlCommand("SELECT session_name, session_desc, session_date FROM Select_session_By_ID_FN(@id)", con);

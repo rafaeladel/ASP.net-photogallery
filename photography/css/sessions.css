@@ -79,6 +79,9 @@
     margin:8px;
     padding : 8px;
     border-radius:3px;
+    position:relative;
+    overflow:auto;
+    height: 40px;
 }
 
 #images_info > p
@@ -101,6 +104,20 @@
 #images_info #ContentPlaceHolder1_session_date
 {
     font-size:10px;
+}
+
+#back2Session 
+{
+    padding: 8px 25px;
+    position: absolute;
+    right: 15px;
+    top:10px;
+    border-radius : 3px;
+    border: 1px inset black;
+    background:#393939;
+    font-size: 15px;
+    text-decoration:none;
+    color:Gray;
 }
 
 .session_image 

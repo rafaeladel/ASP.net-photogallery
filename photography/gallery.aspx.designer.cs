@@ -22,6 +22,15 @@ namespace photography {
         protected global::System.Web.UI.WebControls.Repeater cat_repeater;
         
         /// <summary>
+        /// photosCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photosCount;
+        
+        /// <summary>
         /// slider_repeater control.
         /// </summary>
         /// <remarks>
