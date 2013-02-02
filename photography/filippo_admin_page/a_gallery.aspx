@@ -22,7 +22,7 @@
                     <ul>
                         <li>
                             <asp:Label AssociatedControlID="title_txt" runat="server" ID="title_lbl">Title:</asp:Label>
-                            <asp:TextBox ID="title_txt" runat="server" placeholder="Image title (REQUIRED!)"></asp:TextBox>
+                            <asp:TextBox ID="title_txt" runat="server" placeholder="Image title"></asp:TextBox>
                         </li>
                         <li>
                             <asp:Label AssociatedControlID="desc_txt" runat="server" ID="desc_lbl">Description:</asp:Label>

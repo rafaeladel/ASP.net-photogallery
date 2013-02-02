@@ -69,6 +69,14 @@
                     <asp:ImageField DataImageUrlField="session_cover">
                         <ControlStyle Height="100px" Width="150px" />
                     </asp:ImageField>
+                    <asp:TemplateField HeaderText="guid" Visible="False">
+                        <ItemTemplate>
+                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("session_guid") %>'></asp:Label>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("session_guid") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
                 <FooterStyle BackColor="#CCCCCC" />
                 <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />

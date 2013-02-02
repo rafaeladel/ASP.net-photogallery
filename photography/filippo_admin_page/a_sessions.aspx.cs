@@ -46,10 +46,12 @@ namespace photography.filippo_admin_page
             {
                 try
                 {
-                    SqlCommand insert_cmd = new SqlCommand("INSERT INTO sessions (session_name, session_desc, session_date) VALUES (@name, @desc, @date)", con);
+                    Guid session_guid = Guid.NewGuid();
+                    SqlCommand insert_cmd = new SqlCommand("INSERT INTO sessions (session_name, session_desc, session_date, session_guid) VALUES (@name, @desc, @date, @guid)", con);
                     insert_cmd.Parameters.AddWithValue("@name", session_txt.Text.Trim());
                     insert_cmd.Parameters.AddWithValue("@desc", desc_txt.Text.Trim());
                     insert_cmd.Parameters.AddWithValue("@date", date_txt.Text);
+                    insert_cmd.Parameters.AddWithValue("@guid", session_guid);
 
                     con.Open();
                     int result = insert_cmd.ExecuteNonQuery();
@@ -61,10 +63,10 @@ namespace photography.filippo_admin_page
                     }
                     else
                     {
-                        Directory.CreateDirectory(Server.MapPath("~/img/sessions/" + session_txt.Text));
+                        Directory.CreateDirectory(Server.MapPath("~/img/sessions/" + session_guid));
                         SqlCommand id_get = new SqlCommand("SELECT MAX(session_id) FROM sessions", con);
                         int current_id = Convert.ToInt32(id_get.ExecuteScalar());
-                        Response.Redirect("img_session.aspx?sid=" + current_id + "&sname=" + session_txt.Text);
+                        Response.Redirect("img_session.aspx?sid=" + current_id + "&sguid=" + session_guid);
                     }
 
 
@@ -85,7 +87,9 @@ namespace photography.filippo_admin_page
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = GridView1.SelectedRow;
-            Response.Redirect("img_session.aspx?sid=" + GridView1.DataKeys[GridView1.SelectedIndex].Value + "&sname=" + row.Cells[3].Text);
+            string sid = GridView1.DataKeys[GridView1.SelectedIndex].Value.ToString() ;
+            string session_guid = ((Label)row.Cells[9].FindControl("Label1")).Text;
+            Response.Redirect("img_session.aspx?sid=" + sid + "&sguid=" + session_guid);
         }
 
 
@@ -104,6 +108,7 @@ namespace photography.filippo_admin_page
                         CheckBox deleteChk = (CheckBox)GridView1.Rows[i].Cells[0].FindControl("deleteCheck");
                         int rowID = Convert.ToInt32(GridView1.DataKeys[i].Value);
                         string session_title = GridView1.Rows[i].Cells[3].Text;
+                        string session_guid = GridView1.Rows[i].Cells[9].Text;
                         if (deleteChk.Checked)
                         {
                             deleteSessionCmd.Parameters.AddWithValue("@id", rowID);
@@ -114,7 +119,7 @@ namespace photography.filippo_admin_page
                             deleteImgCmd.ExecuteNonQuery();
                             deleteImgCmd.Parameters.Clear();
 
-                            DeleteSession(session_title);
+                            DeleteSession(session_title, session_guid);
                         }
                     }
                 }
@@ -132,11 +137,11 @@ namespace photography.filippo_admin_page
             GridView1.DataBind();
         }
 
-        private void DeleteSession(string sessionName)
+        private void DeleteSession( string sessionName ,string sessionGUID)
         {
             try
             {
-                DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/img/sessions/" + sessionName));
+                DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/img/sessions/" + sessionGUID));
                 dir.Delete(true);
                 msg_lbl.Visible = true;
                 msg_lbl.Text = string.Format("Session {0} Is deleted.", sessionName);

@@ -25,15 +25,21 @@ namespace photography.filippo_admin_page
 
             int sid = 0;
             bool sid_valid = int.TryParse(Request.QueryString["sid"], out sid);
-            if (sid_valid && Request.QueryString["sname"] != null)
+            if (sid_valid && Request.QueryString["sguid"] != null)
             {
                 if (Request.UrlReferrer == null)
                 {
                     using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString))
                     {
-                        SqlCommand check_cmd = new SqlCommand("SELECT COUNT(*) FROM sessions WHERE session_id=@session_id AND session_name=@session_name", con);
+                        SqlCommand check_cmd = new SqlCommand("SELECT COUNT(*) FROM sessions WHERE session_id=@session_id AND session_guid=@session_guid", con);
                         check_cmd.Parameters.AddWithValue("@session_id", sid);
-                        check_cmd.Parameters.AddWithValue("@session_name", Request.QueryString["sname"]);
+                        Guid myGuid = Guid.Empty;
+                        bool validGUID = Guid.TryParse(Request.QueryString["sguid"].ToString(),out myGuid);
+                        if (validGUID == false)
+                        {
+                            Response.Redirect("a_sessions.aspx");
+                        }
+                        check_cmd.Parameters.Add("@session_guid", System.Data.SqlDbType.UniqueIdentifier).Value = myGuid;
                         con.Open();
                         int result = Convert.ToInt32(check_cmd.ExecuteScalar());
                         if (result == 0)
@@ -137,7 +143,7 @@ namespace photography.filippo_admin_page
                     HttpPostedFile my_file = Request.Files[i];
                     if (my_file.ContentLength > 0)
                     {
-                        string path = "~/img/sessions/" + Request.QueryString["sname"] + "/" + my_file.FileName;
+                        string path = "~/img/sessions/" + Request.QueryString["sguid"] + "/" + my_file.FileName;
                         insert_cmd.Parameters.AddWithValue("@name", my_file.FileName);
                         insert_cmd.Parameters.AddWithValue("@path", path);
                         int result = insert_cmd.ExecuteNonQuery();
@@ -149,7 +155,7 @@ namespace photography.filippo_admin_page
                             break;
                         }
                         //uploading files
-                        folder_dir = Path.Combine(Server.MapPath("~/img/sessions/"), Request.QueryString["sname"]);
+                        folder_dir = Path.Combine(Server.MapPath("~/img/sessions/"), Request.QueryString["sguid"]);
                         string file_dir = Path.Combine(folder_dir, my_file.FileName);
                         my_file.SaveAs(file_dir);
                         insert_cmd.Parameters.RemoveAt("@name");
@@ -267,7 +273,7 @@ namespace photography.filippo_admin_page
                             DeleteImages(img_title);
 
                             //get images count
-                            DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/img/sessions/" + Request.QueryString["sname"].ToString()));
+                            DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/img/sessions/" + Request.QueryString["sguid"].ToString()));
                             int img_count = dir.GetFiles().Length;
 
                             //Inserting image count into sessions table
@@ -303,8 +309,8 @@ namespace photography.filippo_admin_page
 
         private void DeleteImages(string img_title)
         {
-            string session_title = Request.QueryString["sname"].ToString();
-            File.Delete(Server.MapPath("~/img/sessions/" + session_title + "/" + img_title));
+            string session_guid = Request.QueryString["sguid"].ToString();
+            File.Delete(Server.MapPath("~/img/sessions/" + session_guid + "/" + img_title));
         }
     }
 }
